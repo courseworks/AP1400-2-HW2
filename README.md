@@ -34,7 +34,8 @@ private:
 This member variable will map each client to its wallet. The wallet is the amount of money the client has.
 
  - **add_client**
-This function will create a new *Client* with the specified `id`. If this `id` already exists, the server should add a random 4 digit number at the end of it automatically.
+This function will create a new *Client* with the specified `id`. If this `id` already exists, the server should add a random 4 digit number at the end of it automatically.<br />
+**::UPDATE::** each client should be assigned with 5 coins at the begining.<br />
 **note.** do not use *srand* for your random numbers.
 
 
@@ -64,13 +65,14 @@ Only accept a pending transaction by authenticating the sender's signature and i
 As mentioned in the TA class each transaction has a pending state until it has been mined and to mine transactions you first need to put your pending transactions together:
 For example if you have 3 transactions like `"ali-hamed-1.5"`, `"mhmd-maryam-2.25"`, and `"mahi-navid-0.5"`; You will get one final string as: `"ali-hamed-1.5mhmd-maryam-2.25mahi-navid-0.5"`. We call this string the *mempool*.
 You will also add a number called *nonce* at the end of this string. To mine the transactions the server will generate the mempool and asks each Client for a nonce and calculates the *sha256* of the final string. For each nonce if the generated *sha256* has 4 zeros <ins>in a row</ins> in the first 10 numbers, then the mine is successful and the client who called the correct nonce will be awarded with 6.25 coins.
-after a successful mine of the pending transactions, all the transactions will be removed from pending and the effect of them will be applied on the clients.
+after a successful mine of the pending transactions, all the transactions will be removed from pending and the effect of them will be applied on the clients.<br />
+**::UPDATE::** instead of 4 zeros use 3 zeros in a row so it wont take time for your runs.<br />
 **note.** after a successful mine, print the id of the miner and return the associate nonce.
 
 
 
 # Client Class
-Use the code fraction bellow to implement this class. you are not allowed to change the functions or add other functions in this class.
+Use the code fraction bellow to implement this class. **note.** you may need to add some keywords to these functions if necessary. you are not allowed to change the functions or add other functions in this class.
 ```cpp
 class Client
 {
@@ -79,6 +81,7 @@ public:
 	std::string get_id();
 	std::string get_publickey();
 	double get_wallet();
+	std::string sign(std::string txt);
 	bool transfer_money(std::string receiver, double value);
 	size_t generate_nonce();
 private:
@@ -106,6 +109,10 @@ Returns the Client's public key.
 - **get_wallet**
 Returns the amount of money the client has.
 
+
+	
+- **:UPDATE:: sign**
+Returns the amount of money the client has.
 
 - **transfer_money**
 Creates a transaction in the server according to its inputs. To create a transaction use the specified string format described in above sections and sign the final transaction string with your private key. use both your signature and your transaction signature to create a pending transaction in the Server.
