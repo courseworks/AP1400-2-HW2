@@ -114,7 +114,7 @@ Returns the amount of money the client has.
 signs the input with the private key and returns the signature.
 
 - **transfer_money**
-Creates a transaction in the server according to its inputs. To create a transaction use the specified string format described in above sections and sign the final transaction string with your private key. use both your signature and your transaction signature to create a pending transaction in the Server.
+Creates a transaction in the server according to its inputs. To create a transaction use the specified string format described in above sections and sign the final transaction string with your private key. use both your signature and your transaction signature to create a pending transaction in the Server using *add_pending_trx* function.
 
 
  - **generate_nonce**
